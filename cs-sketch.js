@@ -47,7 +47,7 @@ function setup() // P5 Setup Fcn
 {
     console.log( "Beg P5 setup =====");
     console.log( "@: log says hello from P5 setup()." );
-    g_canvas = { cell_size:20, wid:37, hgt:29 };
+    g_canvas = { cell_size:20, wid:40, hgt:40 };
     g_frame_cnt = 0; // Setup a P5 display-frame counter, to do anim
     g_frame_mod = 24; // Update ever 'mod' frames.
     g_stop = 0; // Go by default.
@@ -57,7 +57,7 @@ function setup() // P5 Setup Fcn
     let height = sz * g_canvas.hgt;
     g_cnv = createCanvas( width, height );  // Make a P5 canvas.
     console.log( "@: createCanvas()." );
-    draw_grid( 20, 20, 'white', 'red' );
+    draw_grid( 20, 20, 'white', 'tan' );
     do_btn( ); // 
 	
 	sc = document.getElementById("stepCounter");
@@ -65,7 +65,7 @@ function setup() // P5 Setup Fcn
     console.log( "End P5 setup =====");
 }
 
-var g_bot = { dir:3, x:1, y:1, color:100 }; // Dir is 0..7 clock, w 0 up.
+var g_bot = { dir:3, x:20, y:20, color:100 }; // Dir is 0..7 clock, w 0 up.
 var g_box = { t:1, hgt:47, l:1, wid:63 }; // Box in which bot can move.
 
 function csjs_get_pixel_color_sum( rx, ry )

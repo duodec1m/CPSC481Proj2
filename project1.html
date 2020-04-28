@@ -376,28 +376,16 @@ poor.
 		 (def direction -1)
 		
 		(let()
-            (if(/= (member (list (+ bx 1) by) coordinates) nil) (def pDirections(cons 3 pDirections)))
-			(if(/= (member (list bx (+ by 1)) coordinates) nil) (def pDirections(cons 6 pDirections)))
-		    (if(/= (member (list (- bx 1) by) coordinates) nil) (def pDirections(cons 9 pDirections)))
-			(if(/= (member (list bx (- by 1)) coordinates) nil) (def pDirections(cons 0 pDirections)))
+            (if(< (+ bx 1) 40) (def pDirections(cons 3 pDirections)))
+			(if(< (+ by 1) 40) (def pDirections(cons 6 pDirections)))
+		    (if(> (- bx 1) 0) (def pDirections(cons 9 pDirections)))
+			(if(> (- by 1) 0) (def pDirections(cons 0 pDirections)))
 	    )	
 		
 		(if (> (length pDirections) 0)
 			(def direction (car(reverse pDirections)))
 		)	
 		
-		(if (and(> (length pDirections) 1)(/= (member (list bx by) junctions) nil))
-			(let()
-	      	    (def direction (car(cdr(reverse pDirections))))
-				(removeJunction (list bx by))
-			)
-			(if(> (length pDirections) 1)
-			    (let()
-			        (def junctions(cons (list bx by) junctions))
-				    (def junction true)
-				)
-			)
-		)
 		
 		(cond
 			((= direction 0)(def newy (- newy 1)))
@@ -422,13 +410,13 @@ poor.
         ;; +1 to paint inside the grid lines
         (xx (+ 1 (* sz (stgr bx))))
         (yy (+ 1 (* sz (stgr by))))
-        (pix (jp-cell-rbg-sum xx yy)))    
-        (js "stroke( 'white' )" ) ;; Named color.
+        (pix (jp-cell-rbg-sum xx yy)))   
+        (js "stroke('black')" ) ;; Named color.
         (if(= backup true) ;; "#RGB" color
 		    (js "fill( 'black' )")
 			(if(= junction true)
 			    (js "fill( 'yellow' )")
-				(js "fill( 'green' )")
+				(js "fill( 'tan' )")
 			) 
 		)
         (jp-rect xx yy zz zz))
@@ -438,17 +426,6 @@ poor.
 			(if(and (= bx 1)(= by 1))(set-black (list 1 1)))
 		    (def path(cons (list bx by) path))
 	    )
-    )
-	
-	(if(and (= bx 35) (= by 27)) ;Reset bot
-	    (let()
-		    (if(< (length path) bestPath)(def bestPath (length path)))
-			(logr(list "Destination Reached! This path = " (length path) "Best path = " bestPath))
-			(def coordinates coordinatesReset)
-			(def path(list ))
-			(def newx 1)
-			(def newy 1)
-			)								
     )
 	
 	(js (concat "g_bot.x = " (stgr newx)))

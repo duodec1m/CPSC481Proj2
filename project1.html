@@ -333,7 +333,7 @@ poor.
         (jp-rect xx yy zz zz)))
 
 ;; ================================================== jp-move-bot ====
-(def coordinates(list '(10 30)))
+(def coordinates(list '(4 4) '(25 4) '(31 4) '(34 7) '(28 7) '(22 7) '(15 7) '(25 10) '(31 10) '(34 13) '(28 13) '(25 13) '(10 13) '(10 16) '(7 16) '(25 16) '(28 16) '(31 16) '(34 19) '(28 19) '(25 19) '(13 19) '(10 19) '(4 19) '(7 22) '(10 22) '(13 22) '(25 22) '(28 22) '(31 22) '(4 25) '(10 25) '(13 25) '(16 25) '(19 25) '(22 25) '(25 25) '(28 25) '(34 25) '(7 28) '(10 28) '(13 28) '(16 28) '(19 28) '(22 28) '(25 28) '(28 28) '(31 28) '(4 31) '(10 31) '(16 31) '(22 31) '(28 31) '(34 31) '(7 34) '(13 34) '(19 34) '(25 34) '(31 34) ))
 (def junctions(list ))
 (def path(list ))
 (def bestPath 372)
@@ -376,7 +376,7 @@ poor.
 		 (def pDirections(list ))
 		 (def direction -1)
 		 
-		(if (and(and (= bx 20)(= by 20))(= (car destinations) '(20 20)))(def destinations (cdr destinations))) ;; check if bot was trying to go home
+		(if (and(and (= bx 19)(= by 19))(= (car destinations) '(19 19)))(def destinations (cdr destinations))) ;; check if bot was trying to go home
 		 
 		(if (= (length destinations) 0)
 			(let()
@@ -385,18 +385,21 @@ poor.
 			)	
 		)	
 	
-		(let()
-			(if(and (= bx (caar destinations))(= by (car(reverse(car destinations))))) ;; destinations reached, send bot home
+		(let(
+				(def destinationX (caar destinations))
+				(def destinationY (car(reverse(car destinations))))
+			)
+			(if(and (= bx destinationX)(= by destinationY)) ;; destinations reached, send bot home
 				(let()
 					(def coordinates (cons (car destinations) coordinates))
 					(def destinations (cdr destinations))
-					(def destinations (cons '(20 20) destinations))
+					(def destinations (cons '(19 19) destinations))
 				)
 			)
-            (if(< bx (caar destinations)) (def pDirections(cons 3 pDirections)))
-			(if(< by (car(reverse(car destinations)))) (def pDirections(cons 6 pDirections)))
-		    (if(> bx (caar destinations)) (def pDirections(cons 9 pDirections)))
-			(if(> by (car(reverse(car destinations)))) (def pDirections(cons 0 pDirections)))
+            (if(< bx destinationX) (def pDirections(cons 3 pDirections)))
+			(if(< by destinationY) (def pDirections(cons 6 pDirections)))
+		    (if(> bx destinationX) (def pDirections(cons 9 pDirections)))
+			(if(> by destinationY) (def pDirections(cons 0 pDirections)))
 	    )	
 		
 		(if (> (length pDirections) 0)

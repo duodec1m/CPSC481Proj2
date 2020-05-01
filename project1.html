@@ -376,11 +376,23 @@ poor.
 		 (def pDirections(list ))
 		 (def direction -1)
 		 
+		(if (and(and (= bx 20)(= by 20))(= (car destinations) '(20 20)))(def destinations (cdr destinations))) ;; check if bot was trying to go home
+		 
 		(if (= (length destinations) 0)
-			(def destinations(cons (car coordinates) destinations))
+			(let()
+				(def destinations(cons (car coordinates) destinations))
+				(def coordinates (cdr coordinates))
+			)	
 		)	
-		
+	
 		(let()
+			(if(and (= bx (caar destinations))(= by (car(reverse(car destinations))))) ;; destinations reached, send bot home
+				(let()
+					(def coordinates (cons (car destinations) coordinates))
+					(def destinations (cdr destinations))
+					(def destinations (cons '(20 20) destinations))
+				)
+			)
             (if(< bx (caar destinations)) (def pDirections(cons 3 pDirections)))
 			(if(< by (car(reverse(car destinations)))) (def pDirections(cons 6 pDirections)))
 		    (if(> bx (caar destinations)) (def pDirections(cons 9 pDirections)))

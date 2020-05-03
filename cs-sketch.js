@@ -65,7 +65,10 @@ function setup() // P5 Setup Fcn
     console.log( "End P5 setup =====");
 }
 
-var g_bot = { dir:3, x:19, y:19, color:100 }; // Dir is 0..7 clock, w 0 up.
+var g_bot1 = { dir:3, x:19, y:19, color:100 }; // Dir is 0..7 clock, w 0 up.
+var g_bot2 = { dir:3, x:18, y:19, color:100 };
+var g_bot3 = { dir:3, x:17, y:19, color:100 };
+var g_bot4 = { dir:3, x:16, y:19, color:100 };
 var g_box = { t:1, hgt:47, l:1, wid:63 }; // Box in which bot can move.
 
 function csjs_get_pixel_color_sum( rx, ry )

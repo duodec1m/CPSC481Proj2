@@ -385,15 +385,17 @@ poor.
 			)	
 		)	
 	
-		(let(
-				(def destinationX (caar destinations))
-				(def destinationY (car(reverse(car destinations))))
-			)
+		(let()
+			(def destinationX (caar destinations))
+			(def destinationY (car(reverse(car destinations))))
+			
 			(if(and (= bx destinationX)(= by destinationY)) ;; destinations reached, send bot home
 				(let()
 					(def coordinates (cons (car destinations) coordinates))
 					(def destinations (cdr destinations))
 					(def destinations (cons '(19 19) destinations))
+					(def destinationX (caar destinations))
+					(def destinationY (car(reverse(car destinations))))
 				)
 			)
             (if(< bx destinationX) (def pDirections(cons 3 pDirections)))

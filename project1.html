@@ -707,6 +707,28 @@ poor.
   (logr (stgr (list "g_l4job.draw_fn() = " (js "g_l4job.draw_fn")))))
 (logr "End html lisp draw fn =====")
 
+;;============================================RULES=================================================
+
+(defun where-should-i-go (botNum)
+	(let()
+		(def i 1)
+		(while (< i 60)
+			(let()
+				(def x (js (concat "plant" i ".x")))
+				(def y (js (concat "plant" i ".y")))
+				(def beingVisited (js (concat "plant" i ".beingVisited")))
+				(def i (+ i 1))
+			)
+		)
+	)
+)
+
+(defun mother-nature ()
+	(let()
+		
+	)
+)
+
 </script>
 
 

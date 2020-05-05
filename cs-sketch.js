@@ -49,7 +49,7 @@ function setup() // P5 Setup Fcn
     console.log( "@: log says hello from P5 setup()." );
     g_canvas = { cell_size:20, wid:40, hgt:40 };
     g_frame_cnt = 0; // Setup a P5 display-frame counter, to do anim
-    g_frame_mod = 24; // Update ever 'mod' frames.
+    g_frame_mod = 5; // Update ever 'mod' frames.
     g_stop = 0; // Go by default.
 
     let sz = g_canvas.cell_size;
@@ -123,3 +123,66 @@ function mousePressed( )
     console.log( "Call g_l4job.draw_fn for mousePressed" );
     g_l4job.draw_fn( );
 }
+
+//PLANTS
+//Even though water levels are between 1 and 3, it takes to water units to move between levels so it makes sense to make them 1 to 5. 
+//1 = brown, 3 = yellow, 5 = green
+var plant1 = {x:4, y:4, wLevel:5, beingVisited:false };
+var plant2 = {x:25, y:4, wLevel:5, beingVisited:false };
+var plant3 = {x:31, y:4, wLevel:5, beingVisited:false };
+var plant4 = {x:34, y:7, wLevel:5, beingVisited:false };
+var plant5 = {x:28, y:7, wLevel:5, beingVisited:false };
+var plant6 = {x:22, y:7, wLevel:5, beingVisited:false };
+var plant7 = {x:15, y:7, wLevel:5, beingVisited:false };
+var plant8 = {x:25, y:10, wLevel:5, beingVisited:false };
+var plant9 = {x:31, y:10, wLevel:5, beingVisited:false };
+var plant10 = {x:34, y:13, wLevel:5, beingVisited:false };
+var plant11 = {x:28, y:13, wLevel:5, beingVisited:false };
+var plant12 = {x:25, y:13, wLevel:5, beingVisited:false };
+var plant13 = {x:10, y:13, wLevel:5, beingVisited:false };
+var plant14 = {x:10, y:16, wLevel:5, beingVisited:false };
+var plant15 = {x:7, y:16, wLevel:5, beingVisited:false };
+var plant16 = {x:25, y:16, wLevel:5, beingVisited:false };
+var plant17 = {x:28, y:16, wLevel:5, beingVisited:false };
+var plant18 = {x:31, y:16, wLevel:5, beingVisited:false };
+var plant19 = {x:34, y:19, wLevel:5, beingVisited:false };
+var plant20 = {x:28, y:19, wLevel:5, beingVisited:false };
+var plant21 = {x:25, y:19, wLevel:5, beingVisited:false };
+var plant22 = {x:13, y:19, wLevel:5, beingVisited:false };
+var plant23 = {x:10, y:19, wLevel:5, beingVisited:false };
+var plant24 = {x:4, y:19, wLevel:5, beingVisited:false };
+var plant25 = {x:7, y:22, wLevel:5, beingVisited:false };
+var plant26 = {x:10, y:22, wLevel:5, beingVisited:false };
+var plant27 = {x:13, y:22, wLevel:5, beingVisited:false };
+var plant28 = {x:25, y:22, wLevel:5, beingVisited:false };
+var plant29 = {x:28, y:22, wLevel:5, beingVisited:false };
+var plant30 = {x:31, y:22, wLevel:5, beingVisited:false };
+var plant31 = {x:4, y:25, wLevel:5, beingVisited:false };
+var plant32 = {x:10, y:25, wLevel:5, beingVisited:false };
+var plant33 = {x:13, y:25, wLevel:5, beingVisited:false };
+var plant34 = {x:16, y:25, wLevel:5, beingVisited:false };
+var plant35 = {x:19, y:25, wLevel:5, beingVisited:false };
+var plant36 = {x:22, y:25, wLevel:5, beingVisited:false };
+var plant37 = {x:25, y:25, wLevel:5, beingVisited:false };
+var plant38 = {x:28, y:25, wLevel:5, beingVisited:false };
+var plant39 = {x:34, y:25, wLevel:5, beingVisited:false };
+var plant40 = {x:7, y:28, wLevel:5, beingVisited:false };
+var plant41 = {x:10, y:28, wLevel:5, beingVisited:false };
+var plant42 = {x:13, y:28, wLevel:5, beingVisited:false };
+var plant43 = {x:16, y:28, wLevel:5, beingVisited:false };
+var plant44 = {x:19, y:28, wLevel:5, beingVisited:false };
+var plant45 = {x:22, y:28, wLevel:5, beingVisited:false };
+var plant46 = {x:25, y:28, wLevel:5, beingVisited:false };
+var plant47 = {x:28, y:28, wLevel:5, beingVisited:false };
+var plant48 = {x:31, y:28, wLevel:5, beingVisited:false };
+var plant49 = {x:4, y:31, wLevel:5, beingVisited:false };
+var plant50 = {x:10, y:31, wLevel:5, beingVisited:false };
+var plant51 = {x:16, y:31, wLevel:5, beingVisited:false };
+var plant52 = {x:22, y:31, wLevel:5, beingVisited:false };
+var plant53 = {x:28, y:31, wLevel:5, beingVisited:false };
+var plant54 = {x:34, y:31, wLevel:5, beingVisited:false };
+var plant55 = {x:7, y:34, wLevel:5, beingVisited:false };
+var plant56 = {x:13, y:34, wLevel:5, beingVisited:false };
+var plant57 = {x:19, y:34, wLevel:5, beingVisited:false };
+var plant58 = {x:25, y:34, wLevel:5, beingVisited:false };
+var plant59 = {x:31, y:34, wLevel:5, beingVisited:false };

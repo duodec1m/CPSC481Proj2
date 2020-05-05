@@ -65,10 +65,10 @@ function setup() // P5 Setup Fcn
     console.log( "End P5 setup =====");
 }
 
-var g_bot1 = { dir:3, x:19, y:19, color:100 }; // Dir is 0..7 clock, w 0 up.
-var g_bot2 = { dir:3, x:18, y:19, color:100 };
-var g_bot3 = { dir:3, x:17, y:19, color:100 };
-var g_bot4 = { dir:3, x:16, y:19, color:100 };
+var g_bot1 = { dir:3, x:19, y:19, color:100, plots:20, seeds:20, fertilizer:0, water:0, barrels:0, soap:0, pots:0 }; // Dir is 0..7 clock, w 0 up.
+var g_bot2 = { dir:3, x:18, y:19, color:100, plots:20, seeds:20, fertilizer:0, water:0, barrels:0, soap:0, pots:0 };
+var g_bot3 = { dir:3, x:17, y:19, color:100, plots:20, seeds:20, fertilizer:0, water:0, barrels:0, soap:0, pots:0 };
+var g_bot4 = { dir:3, x:16, y:19, color:100, plots:20, seeds:20, fertilizer:0, water:0, barrels:0, soap:0, pots:0 };
 var g_box = { t:1, hgt:47, l:1, wid:63 }; // Box in which bot can move.
 
 function csjs_get_pixel_color_sum( rx, ry )
@@ -125,64 +125,69 @@ function mousePressed( )
 }
 
 //PLANTS
-//Even though water levels are between 1 and 3, it takes to water units to move between levels so it makes sense to make them 1 to 5. 
-//1 = brown, 3 = yellow, 5 = green
-var plant1 = {x:4, y:4, wLevel:5, beingVisited:false };
-var plant2 = {x:25, y:4, wLevel:5, beingVisited:false };
-var plant3 = {x:31, y:4, wLevel:5, beingVisited:false };
-var plant4 = {x:34, y:7, wLevel:5, beingVisited:false };
-var plant5 = {x:28, y:7, wLevel:5, beingVisited:false };
-var plant6 = {x:22, y:7, wLevel:5, beingVisited:false };
-var plant7 = {x:15, y:7, wLevel:5, beingVisited:false };
-var plant8 = {x:25, y:10, wLevel:5, beingVisited:false };
-var plant9 = {x:31, y:10, wLevel:5, beingVisited:false };
-var plant10 = {x:34, y:13, wLevel:5, beingVisited:false };
-var plant11 = {x:28, y:13, wLevel:5, beingVisited:false };
-var plant12 = {x:25, y:13, wLevel:5, beingVisited:false };
-var plant13 = {x:10, y:13, wLevel:5, beingVisited:false };
-var plant14 = {x:10, y:16, wLevel:5, beingVisited:false };
-var plant15 = {x:7, y:16, wLevel:5, beingVisited:false };
-var plant16 = {x:25, y:16, wLevel:5, beingVisited:false };
-var plant17 = {x:28, y:16, wLevel:5, beingVisited:false };
-var plant18 = {x:31, y:16, wLevel:5, beingVisited:false };
-var plant19 = {x:34, y:19, wLevel:5, beingVisited:false };
-var plant20 = {x:28, y:19, wLevel:5, beingVisited:false };
-var plant21 = {x:25, y:19, wLevel:5, beingVisited:false };
-var plant22 = {x:13, y:19, wLevel:5, beingVisited:false };
-var plant23 = {x:10, y:19, wLevel:5, beingVisited:false };
-var plant24 = {x:4, y:19, wLevel:5, beingVisited:false };
-var plant25 = {x:7, y:22, wLevel:5, beingVisited:false };
-var plant26 = {x:10, y:22, wLevel:5, beingVisited:false };
-var plant27 = {x:13, y:22, wLevel:5, beingVisited:false };
-var plant28 = {x:25, y:22, wLevel:5, beingVisited:false };
-var plant29 = {x:28, y:22, wLevel:5, beingVisited:false };
-var plant30 = {x:31, y:22, wLevel:5, beingVisited:false };
-var plant31 = {x:4, y:25, wLevel:5, beingVisited:false };
-var plant32 = {x:10, y:25, wLevel:5, beingVisited:false };
-var plant33 = {x:13, y:25, wLevel:5, beingVisited:false };
-var plant34 = {x:16, y:25, wLevel:5, beingVisited:false };
-var plant35 = {x:19, y:25, wLevel:5, beingVisited:false };
-var plant36 = {x:22, y:25, wLevel:5, beingVisited:false };
-var plant37 = {x:25, y:25, wLevel:5, beingVisited:false };
-var plant38 = {x:28, y:25, wLevel:5, beingVisited:false };
-var plant39 = {x:34, y:25, wLevel:5, beingVisited:false };
-var plant40 = {x:7, y:28, wLevel:5, beingVisited:false };
-var plant41 = {x:10, y:28, wLevel:5, beingVisited:false };
-var plant42 = {x:13, y:28, wLevel:5, beingVisited:false };
-var plant43 = {x:16, y:28, wLevel:5, beingVisited:false };
-var plant44 = {x:19, y:28, wLevel:5, beingVisited:false };
-var plant45 = {x:22, y:28, wLevel:5, beingVisited:false };
-var plant46 = {x:25, y:28, wLevel:5, beingVisited:false };
-var plant47 = {x:28, y:28, wLevel:5, beingVisited:false };
-var plant48 = {x:31, y:28, wLevel:5, beingVisited:false };
-var plant49 = {x:4, y:31, wLevel:5, beingVisited:false };
-var plant50 = {x:10, y:31, wLevel:5, beingVisited:false };
-var plant51 = {x:16, y:31, wLevel:5, beingVisited:false };
-var plant52 = {x:22, y:31, wLevel:5, beingVisited:false };
-var plant53 = {x:28, y:31, wLevel:5, beingVisited:false };
-var plant54 = {x:34, y:31, wLevel:5, beingVisited:false };
-var plant55 = {x:7, y:34, wLevel:5, beingVisited:false };
-var plant56 = {x:13, y:34, wLevel:5, beingVisited:false };
-var plant57 = {x:19, y:34, wLevel:5, beingVisited:false };
-var plant58 = {x:25, y:34, wLevel:5, beingVisited:false };
-var plant59 = {x:31, y:34, wLevel:5, beingVisited:false };
+//Even though water levels are between 1 and 3, it takes two water units to move between levels so it makes sense to make them 1 to 5. 
+//Water levels: 1 = brown, 3 = yellow, 5 = green
+//Plant type: apple, berry, corn
+//Plant levels: 1 = plotted, 2 = seeded, 3 = fertilized, 4 = watered (during 4 is where plant starts growing)
+//Maturity levels: 1 = seeded, 2 = stalked, 3 = bushed (during 3 is where plant starts fruiting)
+//Fruit levels: 1 = flowering, 2 = green, 3 = red, 4 = none
+//Blight: true, false
+var plant1 = {x:4, y:4, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant2 = {x:25, y:4, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant3 = {x:31, y:4, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant4 = {x:34, y:7, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant5 = {x:28, y:7, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant6 = {x:22, y:7, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant7 = {x:15, y:7, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant8 = {x:25, y:10, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant9 = {x:31, y:10, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant10 = {x:34, y:13, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant11 = {x:28, y:13, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant12 = {x:25, y:13, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant13 = {x:10, y:13, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant14 = {x:10, y:16, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant15 = {x:7, y:16, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant16 = {x:25, y:16, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant17 = {x:28, y:16, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant18 = {x:31, y:16, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant19 = {x:34, y:19, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant20 = {x:28, y:19, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant21 = {x:25, y:19, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant22 = {x:13, y:19, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant23 = {x:10, y:19, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant24 = {x:4, y:19, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant25 = {x:7, y:22, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant26 = {x:10, y:22, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant27 = {x:13, y:22, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant28 = {x:25, y:22, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant29 = {x:28, y:22, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant30 = {x:31, y:22, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant31 = {x:4, y:25, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant32 = {x:10, y:25, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant33 = {x:13, y:25, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant34 = {x:16, y:25, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant35 = {x:19, y:25, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant36 = {x:22, y:25, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant37 = {x:25, y:25, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant38 = {x:28, y:25, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant39 = {x:34, y:25, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant40 = {x:7, y:28, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant41 = {x:10, y:28, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant42 = {x:13, y:28, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant43 = {x:16, y:28, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant44 = {x:19, y:28, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant45 = {x:22, y:28, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant46 = {x:25, y:28, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant47 = {x:28, y:28, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant48 = {x:31, y:28, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant49 = {x:4, y:31, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant50 = {x:10, y:31, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant51 = {x:16, y:31, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant52 = {x:22, y:31, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant53 = {x:28, y:31, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant54 = {x:34, y:31, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant55 = {x:7, y:34, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant56 = {x:13, y:34, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant57 = {x:19, y:34, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant58 = {x:25, y:34, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant59 = {x:31, y:34, wLevel:5, beingVisited:false, age:0, pType:none, pLevel:0, mLevel:0, fLevel:0, blight:false };

@@ -17,7 +17,7 @@ function draw_grid( rminor, rmajor, rstroke, rfill  )
 	fill('red');
 	rect(19*rminor,19*rminor,rminor,rminor); //bucket
 	
-	fill('green');
+	fill('tan');
 	rect(4*rminor,4*rminor,rminor,rminor); //plants
 	rect(25*rminor,4*rminor,rminor,rminor);
 	rect(31*rminor,4*rminor,rminor,rminor);

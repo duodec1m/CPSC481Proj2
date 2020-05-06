@@ -191,3 +191,42 @@ var plant56 = {x:13, y:34, wLevel:5, beingVisited:false, age:0, pType:"", pLevel
 var plant57 = {x:19, y:34, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
 var plant58 = {x:25, y:34, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
 var plant59 = {x:31, y:34, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
+var array = [plant1,plant2,plant3,plant4,plant5,plant6,plant7,plant8,plant9,plant10,plant11,plant12,plant13,plant14,plant15,plant16,plant17,plant18,plant19,plant20,plant21,plant22,plant23,plant24,plant25,plant26,plant27,plant28,plant29,plant30,plant31,plant32,plant33,plant34,plant35,plant36,plant37,plant38,plant39,plant40,plant41,plant42,plant43,plant44,plant45,plant46,plant47,plant48,plant49,plant50,plant51,plant52,plant53,plant54,plant55,plant56,plant57,plant58,plant59];
+
+function drawNature(){
+	var mArray = array.filter(({pLevel}) => pLevel > 0);
+	for(const plant of mArray){
+		if(plant.pLevel === 1){
+			fill('gray');
+			rect(plant.x*20,plant.y*20,20,20);
+		}
+	}
+	
+	mArray = mArray.filter(({pLevel}) => pLevel > 1);
+	for(const plant of mArray){
+		if(plant.pLevel === 2){
+			fill('brown');
+			rect(plant.x*20,plant.y*20,20,20);
+		}
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel > 2);
+	for(const plant of mArray){
+		if(plant.pLevel === 3){
+			fill('blue');
+			rect(plant.x*20,plant.y*20,20,20);
+		}
+	}
+}
+
+function homeCheck(){
+	var noVisited = array.filter(({beingVisited}) => beingVisited == false);
+	if(noVisited.find(({pLevel}) => pLevel === 0) != null)
+		return 0;
+	else if(noVisited.find(({pLevel}) => pLevel === 2) != null)
+		return 2;
+}
+
+var markedPoint;
+function markVisit(xx, yy){
+	markedPoint = array.filter(({x}) => x === xx).find(({y}) => y === yy);
+}

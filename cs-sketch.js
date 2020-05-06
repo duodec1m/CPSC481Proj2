@@ -213,20 +213,57 @@ function drawNature(){
 	for(const plant of mArray){
 		if(plant.pLevel === 3){
 			fill('blue');
-			rect(plant.x*20,plant.y*20,20,20);
+			rect(plant.x*20,plant.y*20,18,18);
 		}
 	}
-}
-
-function homeCheck(){
-	var noVisited = array.filter(({beingVisited}) => beingVisited == false);
-	if(noVisited.find(({pLevel}) => pLevel === 0) != null)
-		return 0;
-	else if(noVisited.find(({pLevel}) => pLevel === 2) != null)
-		return 2;
 }
 
 var markedPoint;
 function markVisit(xx, yy){
 	markedPoint = array.filter(({x}) => x === xx).find(({y}) => y === yy);
+}
+
+//Searching where the box should go next has been split into multiple functions representing search criteria
+var markedPlant;
+function wLevel(x){
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({wLevel}) => wLevel === x);
+	if(markedPlant != null)
+		return true;
+	return false;
+}
+function age(x){
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({age}) => age === x);
+	if(markedPlant != null)
+		return true;
+	return false;
+}
+function pType(x){
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({pType}) => pType === x);
+	if(markedPlant != null)
+		return true;
+	return false;
+}
+function pLevel(x){
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({pLevel}) => pLevel === x);
+	if(markedPlant != null)
+		return true;
+	return false;
+}
+function mLevel(x){
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({mLevel}) => mLevel === x);
+	if(markedPlant != null)
+		return true;
+	return false;
+}
+function fLevel(x){
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({fLevel}) => fLevel === x);
+	if(markedPlant != null)
+		return true;
+	return false;
+}
+function blight(x){
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({blight}) => blight === x);
+	if(markedPlant != null)
+		return true;
+	return false;
 }

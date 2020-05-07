@@ -127,94 +127,93 @@ function mousePressed( )
 //PLANTS
 //Even though water levels are between 1 and 3, it takes two water units to move between levels so it makes sense to make them 1 to 5. 
 //Water levels: 1 = brown, 3 = yellow, 5 = green
-//Plant type: apple, berry, corn
-//Plant levels: 1 = plotted, 2 = seeded, 3 = fertilized, 4 = watered (during 4 is where plant starts growing)
-//Maturity levels: 1 = seeded, 2 = stalked, 3 = bushed (during 3 is where plant starts fruiting)
-//Fruit levels: 1 = flowering, 2 = green, 3 = red, 4 = none
+//Apple Plant levels: 0 = seeded, 1 = stalked, 4 = bushed, 10 = blossomed, 13 = fruited, 15 = apples, 18+ = none
+//Berry Plant levels: 0 = seeded, 1 = stalked, 4 = bushed, 8 = blossomed, 10 = fruited, 11 = apples, 14+ = none
+//Corn Plant levels: 0 = seeded, 1 = stalked, 3 = bushed, 5 = blossomed, 7 = fruited, 8 = apples, 11+ = none
 //Blight: true, false
-var plant1 = {x:4, y:4, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant2 = {x:25, y:4, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant3 = {x:31, y:4, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant4 = {x:34, y:7, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant5 = {x:28, y:7, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant6 = {x:22, y:7, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant7 = {x:15, y:7, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant8 = {x:25, y:10, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant9 = {x:31, y:10, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant10 = {x:34, y:13, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant11 = {x:28, y:13, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant12 = {x:25, y:13, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant13 = {x:10, y:13, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant14 = {x:10, y:16, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant15 = {x:7, y:16, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant16 = {x:25, y:16, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant17 = {x:28, y:16, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant18 = {x:31, y:16, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant19 = {x:34, y:19, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant20 = {x:28, y:19, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant21 = {x:25, y:19, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant22 = {x:13, y:19, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant23 = {x:10, y:19, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant24 = {x:4, y:19, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant25 = {x:7, y:22, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant26 = {x:10, y:22, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant27 = {x:13, y:22, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant28 = {x:25, y:22, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant29 = {x:28, y:22, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant30 = {x:31, y:22, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant31 = {x:4, y:25, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant32 = {x:10, y:25, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant33 = {x:13, y:25, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant34 = {x:16, y:25, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant35 = {x:19, y:25, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant36 = {x:22, y:25, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant37 = {x:25, y:25, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant38 = {x:28, y:25, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant39 = {x:34, y:25, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant40 = {x:7, y:28, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant41 = {x:10, y:28, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant42 = {x:13, y:28, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant43 = {x:16, y:28, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant44 = {x:19, y:28, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant45 = {x:22, y:28, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant46 = {x:25, y:28, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant47 = {x:28, y:28, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant48 = {x:31, y:28, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant49 = {x:4, y:31, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant50 = {x:10, y:31, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant51 = {x:16, y:31, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant52 = {x:22, y:31, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant53 = {x:28, y:31, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant54 = {x:34, y:31, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant55 = {x:7, y:34, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant56 = {x:13, y:34, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant57 = {x:19, y:34, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant58 = {x:25, y:34, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
-var plant59 = {x:31, y:34, wLevel:5, beingVisited:false, age:0, pType:"", pLevel:0, mLevel:0, fLevel:0, blight:false };
+var plant1 = {x:4, y:4, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant2 = {x:25, y:4, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant3 = {x:31, y:4, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant4 = {x:34, y:7, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant5 = {x:28, y:7, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant6 = {x:22, y:7, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant7 = {x:15, y:7, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant8 = {x:25, y:10, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant9 = {x:31, y:10, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant10 = {x:34, y:13, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant11 = {x:28, y:13, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant12 = {x:25, y:13, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant13 = {x:10, y:13, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant14 = {x:10, y:16, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant15 = {x:7, y:16, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant16 = {x:25, y:16, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant17 = {x:28, y:16, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant18 = {x:31, y:16, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant19 = {x:34, y:19, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant20 = {x:28, y:19, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant21 = {x:25, y:19, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant22 = {x:13, y:19, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant23 = {x:10, y:19, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant24 = {x:4, y:19, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant25 = {x:7, y:22, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant26 = {x:10, y:22, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant27 = {x:13, y:22, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant28 = {x:25, y:22, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant29 = {x:28, y:22, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant30 = {x:31, y:22, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant31 = {x:4, y:25, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant32 = {x:10, y:25, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant33 = {x:13, y:25, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant34 = {x:16, y:25, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant35 = {x:19, y:25, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant36 = {x:22, y:25, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant37 = {x:25, y:25, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant38 = {x:28, y:25, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant39 = {x:34, y:25, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant40 = {x:7, y:28, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant41 = {x:10, y:28, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant42 = {x:13, y:28, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant43 = {x:16, y:28, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant44 = {x:19, y:28, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant45 = {x:22, y:28, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant46 = {x:25, y:28, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant47 = {x:28, y:28, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant48 = {x:31, y:28, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant49 = {x:4, y:31, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant50 = {x:10, y:31, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant51 = {x:16, y:31, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant52 = {x:22, y:31, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant53 = {x:28, y:31, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant54 = {x:34, y:31, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant55 = {x:7, y:34, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant56 = {x:13, y:34, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant57 = {x:19, y:34, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant58 = {x:25, y:34, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
+var plant59 = {x:31, y:34, wLevel:5, beingVisited:false, pType:"", plotted:false, fertilized:false, seeded:false, watered:false, pLevel:0, blight:false };
 var array = [plant1,plant2,plant3,plant4,plant5,plant6,plant7,plant8,plant9,plant10,plant11,plant12,plant13,plant14,plant15,plant16,plant17,plant18,plant19,plant20,plant21,plant22,plant23,plant24,plant25,plant26,plant27,plant28,plant29,plant30,plant31,plant32,plant33,plant34,plant35,plant36,plant37,plant38,plant39,plant40,plant41,plant42,plant43,plant44,plant45,plant46,plant47,plant48,plant49,plant50,plant51,plant52,plant53,plant54,plant55,plant56,plant57,plant58,plant59];
 
 function drawNature(){
-	var mArray = array.filter(({pLevel}) => pLevel > 0);
+	var mArray = array.filter(({plotted}) => plotted === true);
 	for(const plant of mArray){
-		if(plant.pLevel === 1){
-			fill('gray');
-			rect(plant.x*20,plant.y*20,20,20);
-		}
+		fill('gray');
+		rect(plant.x*20,plant.y*20,20,20);
 	}
-	
-	mArray = mArray.filter(({pLevel}) => pLevel > 1);
+	mArray = mArray.filter(({seeded}) => seeded === true);
 	for(const plant of mArray){
-		if(plant.pLevel === 2){
-			fill('brown');
-			rect(plant.x*20,plant.y*20,20,20);
-		}
+		fill('green');
+		circle(plant.x*20.5,plant.y*20.5,10);
+
 	}
-	mArray = mArray.filter(({pLevel}) => pLevel > 2);
+	mArray = mArray.filter(({fertilized}) => fertilized === true);
 	for(const plant of mArray){
-		if(plant.pLevel === 3){
-			fill('blue');
-			rect(plant.x*20,plant.y*20,18,18);
-		}
+		fill('brown');
+		rect(plant.x*20,plant.y*20,20,20);
+
+	}
+	mArray = mArray.filter(({watered}) => watered === true);
+	for(const plant of mArray){
+		fill('blue');
+		rect(plant.x*20,plant.y*20,18,18);
 	}
 }
 
@@ -231,32 +230,40 @@ function wLevel(x){
 		return true;
 	return false;
 }
-function age(x){
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({age}) => age === x);
-	if(markedPlant != null)
-		return true;
-	return false;
-}
 function pType(x){
 	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({pType}) => pType === x);
 	if(markedPlant != null)
 		return true;
 	return false;
 }
+function plotted(x){
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({plotted}) => plotted === x);
+	if(markedPlant != null){
+		console.log("markedPlant = " + markedPlant.x + " " + markedPlant.y);
+		return true;
+	}
+	return false;
+}
+function fertilized(x){
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({fertilized}) => fertilized === x);
+	if(markedPlant != null)
+		return true;
+	return false;
+}
+function seeded(x){
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({seeded}) => seeded === x);
+	if(markedPlant != null)
+		return true;
+	return false;
+}
+function watered(x){
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({watered}) => watered === x);
+	if(markedPlant != null)
+		return true;
+	return false;
+}
 function pLevel(x){
 	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({pLevel}) => pLevel === x);
-	if(markedPlant != null)
-		return true;
-	return false;
-}
-function mLevel(x){
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({mLevel}) => mLevel === x);
-	if(markedPlant != null)
-		return true;
-	return false;
-}
-function fLevel(x){
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({fLevel}) => fLevel === x);
 	if(markedPlant != null)
 		return true;
 	return false;

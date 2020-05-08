@@ -34,7 +34,15 @@ this file includes the bots movement and draw logic in lisp -->
     <div class="row">
 		<p>Crops Harvested:</p>
 		<p id="cropsHarvested">    <!-- Crops Harvested -->
+		<p>Number of Barrels:</p>
+		<p id="barrels">
 	</div> 
+	<div class="row">
+		<p>Forecast:</p>
+		<p id="forecast">    <!-- Weather -->
+		<p>Wind:</p>
+		<p id="wind">
+	</div>
   </body>    <!-- HTML display page ends here -->
 
 <script src="assets/draw-stuff.js"></script> <!-- Load some JS fcns in a file -->
@@ -847,6 +855,19 @@ poor.
 						(logr (concat "bot"botNum" is going to harvest at: "(js "markedPlant.x")", "(js "markedPlant.y")))
 					)
 				)
+				((and(= (js "blight(true)") 1)(= soap 0))
+					(let()
+						(sendBot botNum 19 19) ;; send bot home to get soap because cleaning blights is second most important
+						(logr (concat "bot"botNum" is going home to get soap to clean a blight."))
+					)
+				)
+				((and(= (js "blight(true)") 1)(> soap 0))
+					(let()
+						(sendBot botNum (js "markedPlant.x") (js "markedPlant.y"))
+						(js (concat "markedPlant.beingVisited = true"))
+						(logr (concat "bot"botNum" is going to clean a blight at: "(js "markedPlant.x")", "(js "markedPlant.y")))
+					)
+				)
 				((and(= (js "plotted(false)") 1)(> plots 0))
 					(let()
 						(sendBot botNum (js "markedPlant.x") (js "markedPlant.y"))
@@ -894,6 +915,7 @@ poor.
 			(let()
 				(def totalCrops (+ (- 20 (js (concat "g_bot" botNum ".barrels"))) totalCrops))
 				(js (concat "tC.innerHTML = " totalCrops))
+				(js (concat "b.innerHTML = " (/ totalCrops 2)))
 			)
 		)
 		
@@ -909,6 +931,11 @@ poor.
 			((= (js "pLevel()") 1)
 				(let()
 					(js (concat "g_bot" botNum ".barrels = 20")) ;; bots can carry 10 barrels with each harvested crop being half a barrel, so make bot carry 20 and each crop being 1
+				)
+			)
+			((= (js "blight(true)") 1)
+				(let()
+					(js (concat "g_bot" botNum ".soap = 20"))
 				)
 			)
 			((= (js "wLevel(3)") 1)
@@ -978,6 +1005,7 @@ poor.
 					(js (concat "markedPoint.seeded = false"))
 					(js (concat "markedPoint.pLevel = 0"))
 					(js (concat "g_bot" botNum ".barrels = " (- barrels 1)))
+					(logr (concat "bot"botNum" successfully harvested apples at: "(js "markedPoint.x")", "(js "markedPoint.y")))
 				)
 			)
 			((and(> barrels 0)(= pType "berries")(>= pLevel 11)(< pLevel 14))
@@ -988,6 +1016,7 @@ poor.
 					(js (concat "markedPoint.seeded = false"))
 					(js (concat "markedPoint.pLevel = 0"))
 					(js (concat "g_bot" botNum ".barrels = " (- barrels 1)))
+					(logr (concat "bot"botNum" successfully harvested berries at: "(js "markedPoint.x")", "(js "markedPoint.y")))
 				)
 			)
 			((and(> barrels 0)(= pType "corn")(>= pLevel 8)(< pLevel 11))
@@ -998,6 +1027,7 @@ poor.
 					(js (concat "markedPoint.seeded = false"))
 					(js (concat "markedPoint.pLevel = 0"))
 					(js (concat "g_bot" botNum ".barrels = " (- barrels 1)))
+					(logr (concat "bot"botNum" successfully harvested corn at: "(js "markedPoint.x")", "(js "markedPoint.y")))
 				)
 			)
 			((and(= plotted 0)(> plots 0)(> seeds 0))
@@ -1009,6 +1039,7 @@ poor.
 					(js (concat "g_bot" botNum ".plots = " (- plots 1)))
 					(js (concat "g_bot" botNum ".seeds = " (- seeds 1)))
 					(def plants (cons (list xx yy) plants))
+					(logr (concat "bot"botNum" successfully plotted and seeded: "(js "markedPoint.x")", "(js "markedPoint.y")))
 				)
 			)
 			((and(= seeded 0)(= plotted 1)(> seeds 0))
@@ -1017,12 +1048,14 @@ poor.
 					(js (concat "markedPoint.pType = getSeed()"))
 					(js (concat "markedPoint.pLevel = 0"))
 					(js (concat "g_bot" botNum ".seeds = " (- seeds 1)))
+					(logr (concat "bot"botNum" successfully seeded: "(js "markedPoint.x")", "(js "markedPoint.y")))
 				)
 			)
 			((and(= fertilized 0)(= seeded 1)(= plotted 1)(> fertilizer 0))
 				(let()
 					(js (concat "markedPoint.fertilized = true"))
 					(js (concat "g_bot" botNum ".fertilizer = " (- fertilizer 1)))
+					(logr (concat "bot"botNum" successfully fertilized: "(js "markedPoint.x")", "(js "markedPoint.y")))
 				)
 			)
 			((and(< wLevel 3)(< pLevel 18)(> water 0))
@@ -1033,6 +1066,14 @@ poor.
 							(js (concat "g_bot" botNum ".water -= 2"))
 						)
 					)
+					(logr (concat "bot"botNum" successfully watered: "(js "markedPoint.x")", "(js "markedPoint.y")" to level "(js "markedPoint.wLevel")))
+				)
+			)
+			((and(= blight 1)(> soap 0))
+				(let()
+					(js "markedPoint.blight = false")
+					(js (concat "g_bot" botNum ".soap = " (- soap 1)))
+					(logr (concat "bot"botNum" successfully cleaned: "(js "markedPoint.x")", "(js "markedPoint.y")))
 				)
 			)
 		)

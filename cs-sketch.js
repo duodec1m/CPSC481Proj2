@@ -193,27 +193,98 @@ var plant59 = {x:31, y:34, wLevel:0, beingVisited:false, pType:"", plotted:false
 var array = [plant1,plant2,plant3,plant4,plant5,plant6,plant7,plant8,plant9,plant10,plant11,plant12,plant13,plant14,plant15,plant16,plant17,plant18,plant19,plant20,plant21,plant22,plant23,plant24,plant25,plant26,plant27,plant28,plant29,plant30,plant31,plant32,plant33,plant34,plant35,plant36,plant37,plant38,plant39,plant40,plant41,plant42,plant43,plant44,plant45,plant46,plant47,plant48,plant49,plant50,plant51,plant52,plant53,plant54,plant55,plant56,plant57,plant58,plant59];
 
 function drawNature(){
+	//Planting phases
 	var mArray = array.filter(({plotted}) => plotted === true);
 	for(const plant of mArray){
 		fill('gray');
 		rect(plant.x*20,plant.y*20,20,20);
 	}
-	mArray = mArray.filter(({seeded}) => seeded === true);
+	mArray = array.filter(({seeded}) => seeded === true);
 	for(const plant of mArray){
 		fill('green');
 		circle(plant.x*20.5,plant.y*20.5,10);
 
 	}
-	mArray = mArray.filter(({fertilized}) => fertilized === true);
+	mArray = array.filter(({fertilized}) => fertilized === true);
 	for(const plant of mArray){
 		fill('brown');
 		rect(plant.x*20,plant.y*20,20,20);
 
 	}
-	mArray = mArray.filter(({wLevel}) => wLevel === 3);
+	
+	//Watering phases
+	mArray = array.filter(({wLevel}) => wLevel >= 1);
 	for(const plant of mArray){
-		fill('blue');
+		if(plant.pLevel === 0){
+			fill('lightblue');
+			rect(plant.x*20,plant.y*20,18,18);
+		}
+	}
+	mArray = mArray.filter(({wLevel}) => wLevel >= 2);
+	for(const plant of mArray){
+		if(plant.pLevel === 0){
+			fill('lightskyblue');
+			rect(plant.x*20,plant.y*20,18,18);
+		}
+	}
+	mArray = mArray.filter(({wLevel}) => wLevel >= 3);
+	for(const plant of mArray){
+		if(plant.pLevel === 0){
+			fill('blue');
+			rect(plant.x*20,plant.y*20,18,18);
+		}
+	}
+	
+	//Growth phases
+	mArray = array.filter(({pLevel}) => pLevel >= 1);
+	for(const plant of mArray){
+		fill('green');
 		rect(plant.x*20,plant.y*20,18,18);
+		fill('brown');
+		circle(plant.x*20.5,plant.y*20.5,10);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 4);
+	for(const plant of mArray){
+		fill('green');
+		circle(plant.x*20.5,plant.y*20.5,15);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 10);
+	for(const plant of mArray){
+		fill('yellow');
+		circle(plant.x*20.5,plant.y*20.5,20);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 13);
+	for(const plant of mArray){
+		fill('indianred');
+		circle(plant.x*20.5,plant.y*20.5,20);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 15);
+	for(const plant of mArray){
+		fill('red');
+		circle(plant.x*20.5,plant.y*20.5,20);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 18);
+	for(const plant of mArray){
+		fill('black');
+		rect(plant.x*20,plant.y*20,20,20);
+	}
+}
+
+function updateNature(){
+	var mArray = array.filter(({plotted}) => plotted === true)
+						.filter(({seeded}) => seeded === true)
+						.filter(({fertilized}) => fertilized === true)
+						.filter(({wLevel}) => wLevel === 3);
+	for(const plant of mArray){
+		plant.wLevel--;
+		plant.pLevel++;
+	}
+	
+	mArray = array.filter(({pLevel}) => pLevel >= 18);
+	for(const plant of mArray){
+		plant.wLevel=0;
+		plant.fertilized=false;
+		plant.seeded=false;
 	}
 }
 
@@ -225,7 +296,12 @@ function markVisit(xx, yy){
 //Searching where the box should go next has been split into multiple functions representing search criteria
 var markedPlant;
 function wLevel(x){
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({wLevel}) => wLevel < x);
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false)
+						.filter(({pLevel}) => pLevel < 18) //do not water dead plants
+						.filter(({plotted}) => plotted === true) //or unplotted areas
+						.filter(({seeded}) => seeded === true) //or unseeded plants
+						.filter(({fertilized}) => fertilized === true) //or unfertilized plants
+						.find(({wLevel}) => wLevel < x);
 	if(markedPlant != null)
 		return true;
 	return false;

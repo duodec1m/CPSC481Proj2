@@ -92,7 +92,7 @@ function draw()  // P5 Frame Re-draw Fcn, Called for Every Frame.
     ++g_frame_cnt;
     if (0 == g_frame_cnt % g_frame_mod)
     {
-        console.log( "g_frame_cnt = " + g_frame_cnt );
+        //console.log( "g_frame_cnt = " + g_frame_cnt );
         if (!g_stop) draw_update();
     }
 }
@@ -237,8 +237,9 @@ function drawNature(){
 		}
 	}
 	
-	//Growth phases
-	mArray = array.filter(({pLevel}) => pLevel >= 1);
+	//Growth phases for apples
+	mArray = array.filter(({pType}) => pType === "apples");
+	mArray = mArray.filter(({pLevel}) => pLevel >= 1);
 	for(const plant of mArray){
 		fill('green');
 		rect(plant.x*20,plant.y*20,18,18);
@@ -270,6 +271,74 @@ function drawNature(){
 		fill('black');
 		rect(plant.x*20,plant.y*20,20,20);
 	}
+	//Growth phases for berries
+	mArray = array.filter(({pType}) => pType === "berries");
+	mArray = mArray.filter(({pLevel}) => pLevel >= 1);
+	for(const plant of mArray){
+		fill('green');
+		rect(plant.x*20,plant.y*20,18,18);
+		fill('brown');
+		circle(plant.x*20.5,plant.y*20.5,10);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 4);
+	for(const plant of mArray){
+		fill('green');
+		circle(plant.x*20.5,plant.y*20.5,15);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 8);
+	for(const plant of mArray){
+		fill('yellow');
+		circle(plant.x*20.5,plant.y*20.5,20);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 10);
+	for(const plant of mArray){
+		fill('indianred');
+		circle(plant.x*20.5,plant.y*20.5,20);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 11);
+	for(const plant of mArray){
+		fill('red');
+		circle(plant.x*20.5,plant.y*20.5,20);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 14);
+	for(const plant of mArray){
+		fill('black');
+		rect(plant.x*20,plant.y*20,20,20);
+	}
+	//Growth phases for corn
+	mArray = array.filter(({pType}) => pType === "corn");
+	mArray = mArray.filter(({pLevel}) => pLevel >= 1);
+	for(const plant of mArray){
+		fill('green');
+		rect(plant.x*20,plant.y*20,18,18);
+		fill('brown');
+		circle(plant.x*20.5,plant.y*20.5,10);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 3);
+	for(const plant of mArray){
+		fill('green');
+		circle(plant.x*20.5,plant.y*20.5,15);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 5);
+	for(const plant of mArray){
+		fill('yellow');
+		circle(plant.x*20.5,plant.y*20.5,20);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 7);
+	for(const plant of mArray){
+		fill('indianred');
+		circle(plant.x*20.5,plant.y*20.5,20);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 8);
+	for(const plant of mArray){
+		fill('red');
+		circle(plant.x*20.5,plant.y*20.5,20);
+	}
+	mArray = mArray.filter(({pLevel}) => pLevel >= 11);
+	for(const plant of mArray){
+		fill('black');
+		rect(plant.x*20,plant.y*20,20,20);
+	}
 }
 
 function updateNature(){
@@ -286,6 +355,14 @@ function updateNature(){
 			plant.pLevel = 18; //Make pLevel 18 so it can be added to the death list
 	}
 	
+	mArray = array.filter(({pType}) => pType === "berries").filter(({pLevel}) => pLevel >= 14);
+	for(const plant of mArray){
+		plant.pLevel = 18;
+	}
+	mArray = array.filter(({pType}) => pType === "corn").filter(({pLevel}) => pLevel >= 11);
+	for(const plant of mArray){
+		plant.pLevel = 18;
+	}
 	mArray = array.filter(({pLevel}) => pLevel >= 18);
 	for(const plant of mArray){
 		plant.wLevel=0;
@@ -320,10 +397,8 @@ function pType(x){
 }
 function plotted(x){
 	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({plotted}) => plotted === x);
-	if(markedPlant != null){
-		console.log("markedPlant = " + markedPlant.x + " " + markedPlant.y);
+	if(markedPlant != null)
 		return true;
-	}
 	return false;
 }
 function fertilized(x){
@@ -364,4 +439,9 @@ function blight(x){
 	if(markedPlant != null)
 		return true;
 	return false;
+}
+
+function getSeed(){
+	var seeds = ["apples", "berries", "corn"];
+	return seeds[Math.floor(Math.random() * seeds.length)].toString();
 }

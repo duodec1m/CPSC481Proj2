@@ -18,6 +18,7 @@ var g_cnv;   // To hold a P5 canvas.
 var g_button; // btn
 var g_button2; // btn
 var sc; //step counter
+var tC; //total crops
 
 var g_l4job = { id:1 }; // Put Lisp stuff for JS-to-access in ob; id to make ob.
 
@@ -61,14 +62,15 @@ function setup() // P5 Setup Fcn
     do_btn( ); // 
 	
 	sc = document.getElementById("stepCounter");
+	tC = document.getElementById("cropsHarvested");
 
     console.log( "End P5 setup =====");
 }
 
-var g_bot1 = { dir:3, x:19, y:19, color:100, plots:20, seeds:20, fertilizer:0, water:0, barrels:0, soap:0, pots:0 }; // Dir is 0..7 clock, w 0 up.
-var g_bot2 = { dir:3, x:18, y:19, color:100, plots:20, seeds:20, fertilizer:0, water:0, barrels:0, soap:0, pots:0 };
-var g_bot3 = { dir:3, x:17, y:19, color:100, plots:20, seeds:20, fertilizer:0, water:0, barrels:0, soap:0, pots:0 };
-var g_bot4 = { dir:3, x:16, y:19, color:100, plots:20, seeds:20, fertilizer:0, water:0, barrels:0, soap:0, pots:0 };
+var g_bot1 = { dir:3, x:19, y:19, color:100, plots:20, seeds:20, fertilizer:0, water:0, barrels:-1, soap:0, pots:0 }; // Dir is 0..7 clock, w 0 up.
+var g_bot2 = { dir:3, x:18, y:19, color:100, plots:20, seeds:20, fertilizer:0, water:0, barrels:-1, soap:0, pots:0 };
+var g_bot3 = { dir:3, x:17, y:19, color:100, plots:20, seeds:20, fertilizer:0, water:0, barrels:-1, soap:0, pots:0 };
+var g_bot4 = { dir:3, x:16, y:19, color:100, plots:20, seeds:20, fertilizer:0, water:0, barrels:-1, soap:0, pots:0 };
 var g_box = { t:1, hgt:47, l:1, wid:63 }; // Box in which bot can move.
 
 function csjs_get_pixel_color_sum( rx, ry )
@@ -274,10 +276,14 @@ function updateNature(){
 	var mArray = array.filter(({plotted}) => plotted === true)
 						.filter(({seeded}) => seeded === true)
 						.filter(({fertilized}) => fertilized === true)
-						.filter(({wLevel}) => wLevel === 3);
+						.filter(({wLevel}) => wLevel <= 3)
+						.filter(({wLevel}) => wLevel > 0);
 	for(const plant of mArray){
+		if(plant.wLevel === 3)
+			plant.pLevel++;
 		plant.wLevel--;
-		plant.pLevel++;
+		if(plant.wLevel === 0)
+			plant.pLevel = 18; //Make pLevel 18 so it can be added to the death list
 	}
 	
 	mArray = array.filter(({pLevel}) => pLevel >= 18);
@@ -332,8 +338,23 @@ function seeded(x){
 		return true;
 	return false;
 }
-function pLevel(x){
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({pLevel}) => pLevel === x);
+function pLevel(){
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false)
+								.filter(({pType}) => pType === "apples")
+								.filter(({pLevel}) => pLevel >= 15)
+								.find(({pLevel}) => pLevel < 18);
+	if(markedPlant != null)
+		return true;
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false)
+								.filter(({pType}) => pType === "berries")
+								.filter(({pLevel}) => pLevel >= 11)
+								.find(({pLevel}) => pLevel < 14);
+	if(markedPlant != null)
+		return true;
+	markedPlant = array.filter(({beingVisited}) => beingVisited === false)
+								.filter(({pType}) => pType === "corn")
+								.filter(({pLevel}) => pLevel >= 8)
+								.find(({pLevel}) => pLevel < 11);
 	if(markedPlant != null)
 		return true;
 	return false;

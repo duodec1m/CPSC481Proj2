@@ -27,8 +27,14 @@ this file includes the bots movement and draw logic in lisp -->
     <p>    <!-- A paragraph 'break', to start a new paragraph -->
     Team AiBros.
 	<p>    <!-- Step Counter -->
-    Day:
-	<p id="stepCounter">    <!-- Step Counter -->
+	<div class="row">
+  		<p>Day:</p>
+		<p id="stepCounter">    <!-- Step Counter -->
+	</div> 
+    <div class="row">
+		<p>Crops Harvested:</p>
+		<p id="cropsHarvested">    <!-- Crops Harvested -->
+	</div> 
   </body>    <!-- HTML display page ends here -->
 
 <script src="assets/draw-stuff.js"></script> <!-- Load some JS fcns in a file -->
@@ -829,6 +835,17 @@ poor.
 		(if(and (= plots 0 )(= seeds 0 )(= fertilizer 0 )(= water 0 )(= barrels 0 )(= soap 0 )(= pots 0 ))
 			(sendBot botNum 19 19) ;; Out of resources, send bot home
 			(cond ;; Higher priority rules at the top of the cond statement
+				((and(= (js "pLevel()") 1)(< barrels 0))
+					(let()
+						(sendBot botNum 19 19) ;; send bot home to get barrels because harvesting crops is most important
+					)
+				)
+				((and(= (js "pLevel()") 1)(> barrels 0))
+					(let()
+						(sendBot botNum (js "markedPlant.x") (js "markedPlant.y"))
+						(js (concat "markedPlant.beingVisited = true"))
+					)
+				)
 				((and(= (js "plotted(false)") 1)(> plots 0))
 					(let()
 						(sendBot botNum (js "markedPlant.x") (js "markedPlant.y"))
@@ -858,18 +875,30 @@ poor.
 		)
 	)
 )
-
+(def totalCrops 0)
 (defun im-home (botNum)
 	(let()
+		(if (>= (js (concat "g_bot" botNum ".barrels")) 0)
+			(let()
+				(def totalCrops (+ (- 20 (js (concat "g_bot" botNum ".barrels"))) totalCrops))
+				(js (concat "tC.innerHTML = " totalCrops))
+			)
+		)
+		
 		//Reset what bot is holding
 		(js (concat "g_bot" botNum ".plots = 0"))
 		(js (concat "g_bot" botNum ".seeds = 0"))
 		(js (concat "g_bot" botNum ".fertilizer = 0"))
 		(js (concat "g_bot" botNum ".water = 0"))
-		(js (concat "g_bot" botNum ".barrels = 0"))
+		(js (concat "g_bot" botNum ".barrels = -1"))
 		(js (concat "g_bot" botNum ".soap = 0"))
 		(js (concat "g_bot" botNum ".pots = 0"))
 		(cond
+			((= (js "pLevel()") 1)
+				(let()
+					(js (concat "g_bot" botNum ".barrels = 20")) ;; bots can carry 10 barrels with each harvested crop being half a barrel, so make bot carry 20 and each crop being 1
+				)
+			)
 			((= (js "plotted(false)") 1)
 				(let()
 					(js (concat "g_bot" botNum ".plots = 20"))
@@ -929,10 +958,21 @@ poor.
 		(def blight (js "markedPoint.blight"))
 		
 		(cond
+			((and(> barrels 0)(= pType "apples")(>= pLevel 15)(< pLevel 18))
+				(let()
+					(js (concat "markedPoint.wLevel = 0"))
+					(js (concat "markedPoint.pType = null"))
+					(js (concat "markedPoint.fertilized = false"))
+					(js (concat "markedPoint.seeded = false"))
+					(js (concat "markedPoint.pLevel = 0"))
+					(js (concat "g_bot" botNum ".barrels = " (- barrels 1)))
+				)
+			)
 			((and(= plotted 0)(> plots 0)(> seeds 0))
 				(let()
 					(js (concat "markedPoint.plotted = true"))
 					(js (concat "markedPoint.seeded = true"))
+					(js (concat "markedPoint.pType = 'apples'"))
 					(js (concat "markedPoint.pLevel = 0"))
 					(js (concat "g_bot" botNum ".plots = " (- plots 1)))
 					(js (concat "g_bot" botNum ".seeds = " (- seeds 1)))
@@ -942,6 +982,7 @@ poor.
 			((and(= seeded 0)(> seeds 0))
 				(let()
 					(js (concat "markedPoint.seeded = true"))
+					(js (concat "markedPoint.pType = 'apples'"))
 					(js (concat "markedPoint.pLevel = 0"))
 					(js (concat "g_bot" botNum ".seeds = " (- seeds 1)))
 				)

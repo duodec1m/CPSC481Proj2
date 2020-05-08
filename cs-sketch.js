@@ -226,7 +226,7 @@ function drawNature(){
 	}
 	
 	//Watering phases
-	mArray = array.filter(({pLevel}) => pLevel < 18).filter(({wLevel}) => wLevel >= 1);
+	mArray = array.filter(({pLevel}) => pLevel < 18).filter(({wLevel}) => wLevel >= 0.5);
 	for(const plant of mArray){
 		if(plant.pLevel === 0){
 			fill('lightblue');
@@ -391,10 +391,10 @@ function updateNature(){
 		if(plant.wLevel === 3 && plant.blight === false && cloudy === false && rain === false) //no blight and clear skies with sufficient water to grow
 			plant.pLevel++;
 		if(rain === true)
-			plant.wLevel++;
+			plant.wLevel+=0.5;
 		else
 			plant.wLevel--;
-		if(plant.wLevel === 0)
+		if(plant.wLevel <= 0)
 			plant.pLevel = 18; //Make pLevel 18 so it can be added to the death list
 	}
 	
@@ -411,6 +411,7 @@ function updateNature(){
 		plant.wLevel=0;
 		plant.fertilized=false;
 		plant.seeded=false;
+		plant.blight=false;
 	}
 }
 
@@ -421,8 +422,21 @@ function markVisit(xx, yy){
 
 //Searching where the box should go next has been split into multiple functions representing search criteria
 var markedPlant;
-function wLevel(x){
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false)
+
+function nearestPoints(xx, yy){
+	var tempPoints = [];
+	for(var distance = 1; tempPoints.length < 59; distance++){
+		for(const point of array){
+			if(Math.sqrt((point.x-xx)*(point.x-xx)+(point.y-yy)*(point.y-yy)) < distance && tempPoints.indexOf(point) == -1){
+				tempPoints.push(point);
+			}
+		}
+	}
+	return tempPoints.filter(({beingVisited}) => beingVisited === false);
+}
+
+function wLevel(x, xx, yy){
+	markedPlant = nearestPoints(xx, yy)
 						.filter(({pLevel}) => pLevel < 18) //do not water dead plants
 						.filter(({plotted}) => plotted === true) //or unplotted areas
 						.filter(({seeded}) => seeded === true) //or unseeded plants
@@ -432,44 +446,44 @@ function wLevel(x){
 		return true;
 	return false;
 }
-function pType(x){
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({pType}) => pType === x);
+function pType(x, xx, yy){
+	markedPlant = nearestPoints(xx, yy).find(({pType}) => pType === x);
 	if(markedPlant != null)
 		return true;
 	return false;
 }
-function plotted(x){
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({plotted}) => plotted === x);
+function plotted(x, xx, yy){
+	markedPlant = nearestPoints(xx, yy).find(({plotted}) => plotted === x);
 	if(markedPlant != null)
 		return true;
 	return false;
 }
-function fertilized(x){
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({fertilized}) => fertilized === x);
+function fertilized(x, xx, yy){
+	markedPlant = nearestPoints(xx, yy).find(({fertilized}) => fertilized === x);
 	if(markedPlant != null)
 		return true;
 	return false;
 }
-function seeded(x){
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({seeded}) => seeded === x);
+function seeded(x, xx, yy){
+	markedPlant = nearestPoints(xx, yy).find(({seeded}) => seeded === x);
 	if(markedPlant != null)
 		return true;
 	return false;
 }
-function pLevel(){
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false)
+function pLevel(xx, yy){
+	markedPlant = nearestPoints(xx, yy)
 								.filter(({pType}) => pType === "apples")
 								.filter(({pLevel}) => pLevel >= 15)
 								.find(({pLevel}) => pLevel < 18);
 	if(markedPlant != null)
 		return true;
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false)
+	markedPlant = nearestPoints(xx, yy)
 								.filter(({pType}) => pType === "berries")
 								.filter(({pLevel}) => pLevel >= 11)
 								.find(({pLevel}) => pLevel < 14);
 	if(markedPlant != null)
 		return true;
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false)
+	markedPlant = nearestPoints(xx, yy)
 								.filter(({pType}) => pType === "corn")
 								.filter(({pLevel}) => pLevel >= 8)
 								.find(({pLevel}) => pLevel < 11);
@@ -477,8 +491,8 @@ function pLevel(){
 		return true;
 	return false;
 }
-function blight(x){
-	markedPlant = array.filter(({beingVisited}) => beingVisited === false).find(({blight}) => blight === x);
+function blight(x, xx, yy){
+	markedPlant = nearestPoints(xx, yy).find(({blight}) => blight === x);
 	if(markedPlant != null)
 		return true;
 	return false;

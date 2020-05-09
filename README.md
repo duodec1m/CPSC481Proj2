@@ -14,7 +14,7 @@ How to build project:
 
 Set Up and installation: N/A
 
-Contents: styless.css, project1.html, p5.js, draw-stuff.js, cs-sketch.js, Jathp.js, README.MD, draw-stuff.js, Project Algorithm Report
+Contents: styless.css, project2.html, p5.js, draw-stuff.js, cs-sketch.js, Jathp.js, README.MD, draw-stuff.js, Project Algorithm Report
 
 Features: grid will be drawn out as soon as browser opens, barn, plants, seeds
 

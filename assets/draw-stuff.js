@@ -1,5 +1,5 @@
-// Draw stuff, with P5  // CF p5js.org/reference
-// Time-stamp: <2020-02-02 14:46:00 Chuck Siska>
+//team AiBros
+//this file draws grid plants barns etc...
 // ------------------------------------------------------------
 
 // =====================================================  draw_grid ====
